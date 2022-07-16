@@ -21,7 +21,7 @@ import os
 import sys
 import sklearn.preprocessing
 from sklearn.metrics import accuracy_score
-from transformers import AutoModel, AutoTokenizer, AutoConfig
+from transformers import BertModel, BertTokenizer, BertConfig
 from typing import List
 
 class NERDA:
@@ -172,9 +172,9 @@ class NERDA:
         self.max_len = max_len
         self.tag_encoder = sklearn.preprocessing.LabelEncoder()
         self.tag_encoder.fit(tag_complete)
-        self.transformer_model = AutoModel.from_pretrained(transformer1)
-        self.transformer_tokenizer = AutoTokenizer.from_pretrained(transformer, **tokenizer_parameters)
-        self.transformer_config = AutoConfig.from_pretrained(transformer)  
+        self.transformer_model = BertModel.from_pretrained(transformer1)
+        self.transformer_tokenizer = BertTokenizer.from_pretrained(transformer, **tokenizer_parameters)
+        self.transformer_config = BertConfig.from_pretrained(transformer)  
         
         if(archi == "baseline"):
             self.network = NERDANetwork(self.transformer_model, self.device, len(tag_complete), dropout = dropout)
