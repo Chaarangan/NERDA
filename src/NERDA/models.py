@@ -81,6 +81,7 @@ class NERDA:
         valid_loss (float): holds validation loss, once the model has been trained.
     """
     def __init__(self, 
+                 transformer1: str = 'bert-base-multilingual-uncased',
                  transformer: str = 'bert-base-multilingual-uncased',
                  device: str = None, 
                  tag_scheme: List[str] = [
@@ -171,7 +172,7 @@ class NERDA:
         self.max_len = max_len
         self.tag_encoder = sklearn.preprocessing.LabelEncoder()
         self.tag_encoder.fit(tag_complete)
-        self.transformer_model = AutoModel.from_pretrained(transformer)
+        self.transformer_model = AutoModel.from_pretrained(transformer1)
         self.transformer_tokenizer = AutoTokenizer.from_pretrained(transformer, **tokenizer_parameters)
         self.transformer_config = AutoConfig.from_pretrained(transformer)  
         
