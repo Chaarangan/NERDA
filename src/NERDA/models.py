@@ -357,7 +357,7 @@ class NERDA:
                             text = text,
                             transformer_tokenizer = self.transformer_tokenizer,
                             transformer_config = self.transformer_config,
-                            max_len = self.max_len,
+                            max_len=self.predict_max_len,
                             device = self.device,
                             tag_encoder = self.tag_encoder,
                             tag_outside = self.tag_outside,
