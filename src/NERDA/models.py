@@ -97,7 +97,6 @@ class NERDA:
                  dataset_training: dict = None,
                  dataset_validation: dict = None,
                  max_len: int = 128,
-                 predict_max_len: int = 128,
                  archi: str = "baseline",
                  dropout: float = 0.1,
                  hyperparameters: dict = {'epochs' : 4,
@@ -170,7 +169,6 @@ class NERDA:
         tag_complete = [tag_outside] + tag_scheme
         # fit encoder to _all_ possible tags.
         self.max_len = max_len
-        self.predict_max_len = predict_max_len
         self.tag_encoder = sklearn.preprocessing.LabelEncoder()
         self.tag_encoder.fit(tag_complete)
         self.transformer_model = AutoModel.from_pretrained(transformer)
@@ -330,7 +328,7 @@ class NERDA:
                        sentences = sentences,
                        transformer_tokenizer = self.transformer_tokenizer,
                        transformer_config = self.transformer_config,
-                       max_len=self.predict_max_len,
+                       max_len=self.max_len,
                        device = self.device,
                        tag_encoder = self.tag_encoder,
                        tag_outside = self.tag_outside,
@@ -357,7 +355,7 @@ class NERDA:
                             text = text,
                             transformer_tokenizer = self.transformer_tokenizer,
                             transformer_config = self.transformer_config,
-                            max_len=self.predict_max_len,
+                            max_len=self.max_len,
                             device = self.device,
                             tag_encoder = self.tag_encoder,
                             tag_outside = self.tag_outside,
@@ -428,8 +426,7 @@ class NERDA:
         # compute F1 scores by entity type
         f1 = compute_f1_scores(["O"] + self.tag_scheme,
                                y_pred=tags_predicted,
-                               y_true = dataset.get('tags'),
-                               labels=["O"] + self.tag_scheme)
+                               y_true = dataset.get('tags'))
 
         # compute and return accuracy if desired
         if return_accuracy:
