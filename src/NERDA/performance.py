@@ -48,4 +48,5 @@ def compute_f1_scores(tag_scheme: List[List[str]],
 
     f1_scores = classification_report(
         y_true, y_pred, labels=tag_scheme, digits=4)
+
     return f1_scores
