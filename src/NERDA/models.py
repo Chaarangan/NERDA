@@ -424,7 +424,7 @@ class NERDA:
         # df = pd.concat([df, f1_macro])
 
         # compute F1 scores by entity type
-        f1 = compute_f1_scores(["O"] + self.tag_scheme,
+        f1 = compute_f1_scores(self.tag_scheme,
                                y_pred=tags_predicted,
                                y_true = dataset.get('tags'))
 
